@@ -67,6 +67,7 @@ export class AppController {
 	)
 	@UseInterceptors(ExceptionInterceptor)
 	uploadSingleVideo(@UploadedFile() file: Express.Multer.File) {
+		console.log("file", file)
 		const res: UploadSingleOutputDto = {
 			originalname: file.originalname,
 			mimetype: file.mimetype,
@@ -84,17 +85,17 @@ export class AppController {
 		@Param("fileName") fileName: string,
 	) {
 		const path = join(__dirname, "..", "upload", fileName)
-		const range = req.headers.range;
+		const range = req.headers.range
 		if (!range) {
-			return res.status(400).send("Requires Range header");
+			return res.status(400).send("Requires Range header")
 		}
 		if (fs.existsSync(path)) {
 			const stat = fs.statSync(path)
 			const videoSize = stat.size
 
-			const CHUNK_SIZE = 10 ** 6; // 1MB
-			const start = Number(range.replace(/\D/g, ""));
-			const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+			const CHUNK_SIZE = 10 ** 6 // 1MB
+			const start = Number(range.replace(/\D/g, ""))
+			const end = Math.min(start + CHUNK_SIZE, videoSize - 1)
 
 			const head = {
 				"Content-Range": `bytes ${start}-${end}/${videoSize}`,
@@ -107,5 +108,23 @@ export class AppController {
 			return videoStream.pipe(res)
 		}
 		return res.sendStatus(404)
+	}
+
+	@Get("videoPlayer/:fileName")
+	async getVideoFileHTMLPlayer(
+		@Req() req: Request,
+		@Res() res: Response,
+		@Param("fileName") fileName: string,
+	) {
+		let html =
+			"<html>" +
+			"<body>" +
+			'<video width="320" height="240" controls autoplay>' +
+			`<source src="http://localhost:4000/video/${fileName}" type="video/mp4">` +
+			"Your browser does not support the video tag." +
+			"</video>" +
+			"</body>" +
+			'</html>"'
+		return res.send(html)
 	}
 }
