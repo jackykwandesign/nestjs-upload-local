@@ -16,6 +16,7 @@ import { AppService } from "./app.service"
 import { ImageFilter, RenameFile } from "./filters"
 import * as fs from "fs"
 import { UploadSingleOutputDto } from "./dto/uploadsingle-output.dto"
+import { ExceptionInterceptor } from "./exception.interceptor"
 require("dotenv").config()
 
 @Controller()
@@ -37,6 +38,7 @@ export class AppController {
 			}),
 		}),
 	)
+  @UseInterceptors(ExceptionInterceptor)
 	uploadSingleFile(@UploadedFile() file: Express.Multer.File) {
     const res:UploadSingleOutputDto = {
       originalname:file.originalname,

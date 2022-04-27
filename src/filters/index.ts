@@ -6,9 +6,12 @@ export const ImageFilter:MulterOptions["fileFilter"] = (req, file, callback) =>{
     if(file.originalname.split(".").length !== 2){
         return callback(new Error("Invalid file name."), false) 
     }
-    if(!file.originalname.match(/\.(jpg|jpeg|gif|png)$/)){
+    if(!file.mimetype.includes('image')){
         return callback(new Error("Invalid file type. Only Image Accepted."), false) 
     }
+    // if(!file.originalname.match(/\.(jpg|jpeg|gif|png)$/)){
+    //     return callback(new Error("Invalid file type. Only Image Accepted."), false) 
+    // }
     callback(null, true)
 }
 
