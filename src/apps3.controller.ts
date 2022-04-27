@@ -31,7 +31,6 @@ export class AppS3Controller {
 	)
 	@UseInterceptors(ExceptionInterceptor)
 	uploadSingleFile(@UploadedFile() file:S3MulterFile) {
-		console.log("file", file)
 		const res: UploadSingleOutputDto = {
 			originalname: file.originalname,
 			mimetype: file.mimetype,
