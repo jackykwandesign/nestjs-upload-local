@@ -18,6 +18,7 @@ import { ImageFilter, RenameFile, VideoFilter } from "./filters"
 import * as fs from "fs"
 import { UploadSingleOutputDto, UploadSingleVideoOutputDto } from "./dto/uploadsingle-output.dto"
 import { ExceptionInterceptor } from "./exception.interceptor"
+import { getStoragePath } from "./utils/initStoragePath"
 require("dotenv").config()
 
 @Controller()
@@ -29,7 +30,7 @@ export class AppController {
 		FileInterceptor("file", {
 			fileFilter: ImageFilter,
 			storage: diskStorage({
-				destination: "./upload",
+				destination: getStoragePath(),
 				filename: RenameFile,
 			}),
 		}),
@@ -60,7 +61,7 @@ export class AppController {
 		FileInterceptor("file", {
 			fileFilter: VideoFilter,
 			storage: diskStorage({
-				destination: "./upload",
+				destination: getStoragePath(),
 				filename: RenameFile,
 			}),
 		}),

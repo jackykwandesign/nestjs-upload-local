@@ -3,9 +3,14 @@ import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
 
 import * as dotenv from "dotenv"
+import { initStoragePath } from './utils/initStoragePath';
 dotenv.config()
 
 async function bootstrap() {
+
+  // check file path if exist
+  initStoragePath()
+
   const app = await NestFactory.create(AppModule);
   app.enableCors();
 
