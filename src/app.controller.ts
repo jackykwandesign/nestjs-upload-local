@@ -7,6 +7,7 @@ import {
 	Res,
 	UploadedFile,
 	UploadedFiles,
+	UseGuards,
 	UseInterceptors,
 } from "@nestjs/common"
 import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express"
@@ -19,8 +20,10 @@ import * as fs from "fs"
 import { UploadSingleOutputDto, UploadSingleVideoOutputDto } from "./dto/uploadsingle-output.dto"
 import { ExceptionInterceptor } from "./exception.interceptor"
 import { getStoragePath } from "./utils/initStoragePath"
-require("dotenv").config()
+import { APIKeyAuthGuard } from "./auth/guards/apiKey.guard"
 
+
+@UseGuards(APIKeyAuthGuard)
 @Controller()
 export class AppController {
 	constructor(private readonly appService: AppService) {}

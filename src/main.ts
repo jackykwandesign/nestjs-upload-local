@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 
 import * as dotenv from "dotenv"
 import { initStoragePath } from './utils/initStoragePath';
+
 dotenv.config()
 
 async function bootstrap() {

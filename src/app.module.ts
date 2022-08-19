@@ -9,6 +9,7 @@ import { validateMultiple } from "./config/validate-multiple"
 import { validateSystemConfig } from "./config/env.validation"
 import { validateDBConfig } from "./config/db.validation"
 import { typeOrmMongoDBConfig } from "./config/typeorm.config"
+import { AuthModule } from './auth/auth.module';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -24,8 +25,9 @@ import { typeOrmMongoDBConfig } from "./config/typeorm.config"
 			...typeOrmMongoDBConfig,
 			// logging:true,
 		}),
+		AuthModule,
 	],
-	controllers: [AppController, AppS3Controller],
+	controllers: [AppController],
 	providers: [AppService],
 })
 export class AppModule {}
