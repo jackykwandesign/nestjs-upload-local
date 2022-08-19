@@ -23,11 +23,16 @@ import { getStoragePath } from "./utils/initStoragePath"
 import { APIKeyAuthGuard } from "./api-auth/guards/apiKey.guard"
 
 
-@UseGuards(APIKeyAuthGuard)
+
 @Controller()
 export class AppController {
-	constructor(private readonly appService: AppService) {}
+	constructor(private readonly appService: AppService) {
+		
+	}
 
+	private readonly serverURL = process.env.SERVER_URL
+
+	@UseGuards(APIKeyAuthGuard)
 	@Post("uploadSingle")
 	@UseInterceptors(
 		FileInterceptor("file", {
@@ -44,7 +49,7 @@ export class AppController {
 			originalname: file.originalname,
 			mimetype: file.mimetype,
 			filename: file.filename,
-			url: `${process.env.SERVER_URL}/image/${file.filename}`,
+			url: `${this.serverURL}/image/${file.filename}`,
 			size: file.size,
 		}
 		return res
@@ -52,13 +57,14 @@ export class AppController {
 
 	@Get("image/:fileName")
 	async getFile(@Res() res: Response, @Param("fileName") fileName: string) {
-		const path = join(__dirname, "..", "upload", fileName)
+		const path = join(getStoragePath(), fileName)
 		if (fs.existsSync(path)) {
 			return res.sendFile(path)
 		}
 		return res.sendStatus(404)
 	}
 
+	@UseGuards(APIKeyAuthGuard)
 	@Post("uploadSingleVideo")
 	@UseInterceptors(
 		FileInterceptor("file", {
@@ -75,8 +81,8 @@ export class AppController {
 			originalname: file.originalname,
 			mimetype: file.mimetype,
 			filename: file.filename,
-			url: `${process.env.SERVER_URL}/video/${file.filename}`,
-			playerURL:`${process.env.SERVER_URL}/videoPlayer/${file.filename}`,
+			url: `${this.serverURL}/video/${file.filename}`,
+			playerURL:`${this.serverURL}/videoPlayer/${file.filename}`,
 			size: file.size,
 		}
 		return res
@@ -124,7 +130,7 @@ export class AppController {
 			"<html>" +
 			"<body>" +
 			'<video width="320" height="240" controls autoplay>' +
-			`<source src="http://localhost:4000/video/${fileName}" type="video/mp4">` +
+			`<source src="${this.serverURL}/video/${fileName}" type="video/mp4">` +
 			"Your browser does not support the video tag." +
 			"</video>" +
 			"</body>" +

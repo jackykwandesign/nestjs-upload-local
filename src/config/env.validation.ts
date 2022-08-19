@@ -22,6 +22,9 @@ class EnvironmentVariables {
   
   @IsString()
   STORAGE_PATH:string
+
+  @IsString()
+  SERVER_URL:string
 }
 
 export function validateSystemConfig(config: Record<string, unknown>) {
