@@ -4,8 +4,6 @@ import * as path from 'path'
 import { parseBoolean } from '../utils/parseBoolean'
 // https://orkhan.gitbook.io/typeorm/docs/connection-options#mongodb-connection-options
 // https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-import * as dotenv from 'dotenv'
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 let typeOrmMongoDBConfig: TypeOrmModuleOptions = {}
 switch (process.env.DB_PROVIDER) {

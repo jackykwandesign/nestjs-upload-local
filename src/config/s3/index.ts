@@ -1,4 +1,3 @@
-require("dotenv").config()
 
 import { S3 } from "aws-sdk"
 import * as multerS3 from "multer-s3"

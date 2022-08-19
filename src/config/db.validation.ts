@@ -18,33 +18,8 @@ class EnvironmentVariables {
   @IsString()
   DB_PASSWORD: string
 
-  // @IsString()
-  // DB_SYNC: number;
-
   @IsString()
   DB_PROVIDER: string
-
-  // CassandraDB
-  @IsString()
-  CASSANDRA_CONTACT_POINTS: string
-
-  @IsString()
-  CASSANDRA_KEYSPACE: string
-
-  @IsString()
-  CASSANDRA_DATACENTER: string
-
-  @IsString()
-  CASSANDRA_USERNAME: string
-
-  @IsString()
-  CASSANDRA_PASSWORD: string
-
-  @IsNumber()
-  CASSANDRA_PORT: number
-
-  @IsString()
-  KAFKA_BROKER_URLS: string
 }
 
 export function validateDBConfig(config: Record<string, unknown>) {

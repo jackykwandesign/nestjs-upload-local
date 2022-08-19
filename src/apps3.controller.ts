@@ -16,12 +16,11 @@ import { ExceptionInterceptor } from "./exception.interceptor"
 import { s3, S3MulterFile, s3Storage } from "./config/s3"
 
 import { S3 } from "aws-sdk"
-require("dotenv").config()
 
 @Controller()
 export class AppS3Controller {
 	constructor(private readonly appService: AppService) {}
-
+	
 	@Post("uploadSingleS3")
 	@UseInterceptors(
 		FileInterceptor("file", {

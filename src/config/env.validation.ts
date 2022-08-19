@@ -19,11 +19,7 @@ class EnvironmentVariables {
   JWT_EXPIRE_IN: string
   @IsString()
   JWT_SECRET: string
-
-  // @IsString()
-  // JWT_CHAT_MEMBER_EXPIRE_IN:string
-  @IsString()
-  JWT_CHAT_MEMBER_SECRET: string
+  
 }
 
 export function validateSystemConfig(config: Record<string, unknown>) {
