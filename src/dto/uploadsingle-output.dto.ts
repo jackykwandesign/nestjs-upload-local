@@ -5,3 +5,7 @@ export class UploadSingleOutputDto{
     size:number
     url:string
 }
+
+export class UploadSingleVideoOutputDto extends UploadSingleOutputDto{
+    playerURL:string
+}

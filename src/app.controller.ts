@@ -16,7 +16,7 @@ import { join } from "path"
 import { AppService } from "./app.service"
 import { ImageFilter, RenameFile, VideoFilter } from "./filters"
 import * as fs from "fs"
-import { UploadSingleOutputDto } from "./dto/uploadsingle-output.dto"
+import { UploadSingleOutputDto, UploadSingleVideoOutputDto } from "./dto/uploadsingle-output.dto"
 import { ExceptionInterceptor } from "./exception.interceptor"
 require("dotenv").config()
 
@@ -67,12 +67,12 @@ export class AppController {
 	)
 	@UseInterceptors(ExceptionInterceptor)
 	uploadSingleVideo(@UploadedFile() file: Express.Multer.File) {
-		console.log("file", file)
-		const res: UploadSingleOutputDto = {
+		const res: UploadSingleVideoOutputDto = {
 			originalname: file.originalname,
 			mimetype: file.mimetype,
 			filename: file.filename,
 			url: `${process.env.SERVER_URL}/video/${file.filename}`,
+			playerURL:`${process.env.SERVER_URL}/videoPlayer/${file.filename}`,
 			size: file.size,
 		}
 		return res
@@ -93,7 +93,7 @@ export class AppController {
 			const stat = fs.statSync(path)
 			const videoSize = stat.size
 
-			const CHUNK_SIZE = 10 ** 6 // 1MB
+			const CHUNK_SIZE = 2 * 10 ** 6 // 1MB
 			const start = Number(range.replace(/\D/g, ""))
 			const end = Math.min(start + CHUNK_SIZE, videoSize - 1)
 
