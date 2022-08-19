@@ -1,7 +1,7 @@
 import { Strategy } from "passport-custom"
 import { PassportStrategy } from "@nestjs/passport"
 import { Injectable } from "@nestjs/common"
-import { AuthService } from "../auth.service"
+import { APIAuthService } from "../api-auth.service"
 import { API_KEY, API_KEY_STRATEGY } from "../enum"
 
 @Injectable()
@@ -9,7 +9,7 @@ export class ApiKeyStrategy extends PassportStrategy(
 	Strategy,
 	API_KEY_STRATEGY,
 ) {
-	constructor(private authService: AuthService) {
+	constructor(private authService: APIAuthService) {
 		super()
 	}
 	private readonly prefix: string = ""

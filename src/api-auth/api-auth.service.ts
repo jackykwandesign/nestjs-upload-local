@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class AuthService {
+export class APIAuthService {
     constructor(
         private readonly configService:ConfigService
     ){}

@@ -20,7 +20,7 @@ import * as fs from "fs"
 import { UploadSingleOutputDto, UploadSingleVideoOutputDto } from "./dto/uploadsingle-output.dto"
 import { ExceptionInterceptor } from "./exception.interceptor"
 import { getStoragePath } from "./utils/initStoragePath"
-import { APIKeyAuthGuard } from "./auth/guards/apiKey.guard"
+import { APIKeyAuthGuard } from "./api-auth/guards/apiKey.guard"
 
 
 @UseGuards(APIKeyAuthGuard)

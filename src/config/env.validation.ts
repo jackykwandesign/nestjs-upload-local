@@ -20,6 +20,8 @@ class EnvironmentVariables {
   @IsString()
   JWT_SECRET: string
   
+  @IsString()
+  STORAGE_PATH:string
 }
 
 export function validateSystemConfig(config: Record<string, unknown>) {
