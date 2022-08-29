@@ -29,7 +29,7 @@ import { validateS3Config } from "./config/s3.validation"
 		}),
 		APIAuthModule,
 	],
-	controllers: [AppController],
+	controllers: [AppController, AppS3Controller],
 	providers: [AppService],
 })
 export class AppModule {}
