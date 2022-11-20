@@ -4,16 +4,25 @@ import { IsNumber, IsString, validateSync } from 'class-validator'
 class EnvironmentVariables {
 
   @IsString()
-  AWS_ACCESS_KEY_ID: string
+  AWS_S3_ACCESS_KEY_ID: string
 
   @IsString()
-  AWS_SECRET_ACCESS_KEY: string
+  AWS_S3_SECRET_ACCESS_KEY: string
 
   @IsString()
   AWS_S3_BUCKET: string
 
   @IsString()
   AWS_S3_REGION: string
+
+  @IsString()
+  AWS_SNS_REGION: string
+
+  @IsString()
+  AWS_SNS_ACCESS_KEY_ID: string
+
+  @IsString()
+  AWS_SNS_SECRET_ACCESS_KEY: string
 
 }
 

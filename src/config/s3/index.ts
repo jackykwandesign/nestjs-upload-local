@@ -1,12 +1,19 @@
 
-import { S3 } from "aws-sdk"
+import { S3, SNS } from "aws-sdk"
 import * as multerS3 from "multer-s3"
 import { RenameFile } from "src/filters"
 const s3 = new S3({
     region : process.env.AWS_S3_REGION,
 	credentials: {
-		accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+		accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
+		secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+	},
+})
+const smsSNS = new SNS({
+    region : process.env.AWS_SNS_REGION,
+	credentials: {
+		accessKeyId: process.env.AWS_SNS_ACCESS_KEY_ID,
+		secretAccessKey: process.env.AWS_SNS_SECRET_ACCESS_KEY,
 	},
 })
 const s3Storage = multerS3({
@@ -29,7 +36,7 @@ interface S3MulterFile extends Omit<Express.Multer.File, "filename"> {
 	etag:string
 	versionId:string
 }
-export { s3, s3Storage, S3MulterFile}
+export { s3, s3Storage, S3MulterFile, smsSNS}
 
 // sample output
 // file {
